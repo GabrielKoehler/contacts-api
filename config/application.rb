@@ -29,5 +29,16 @@ module ContactsApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*' #any origin can call api
+        resource '*', #any resource of api can call
+          headers: :any,
+          methods: %i(get post put delete options head)
+      end
+    end
+
+    config.middleware.use Rack::Attack
   end
 end
