@@ -4,7 +4,7 @@ class Api::V1::ContactsController < Api::V1::ApiController
 
   # GET /api/v1/contacts
   def index
-    @contacts = current_user.contacts
+    @contacts = current_user.contacts.paginate(page: params[:page],  per_page: 10)
 
     render json: @contacts
   end
